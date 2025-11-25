@@ -56,7 +56,7 @@ export default function Recordatorio() {
             </div>
 
             <button
-                onClick={() => navigate("/Precauciones")}
+                onClick={() => navigate("/Aislamiento")}
                 className="btn-volver"
                 style={{ marginTop: "20px" }}
             >

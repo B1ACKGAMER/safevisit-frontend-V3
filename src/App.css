@@ -5,21 +5,26 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-
 }
 
 body {
-  font-family: "Merriweather", Merriweather;
-
   /* === Fondo con imagen === */
+  font-family: "Merriweather", Merriweather;
   background: url("assets/fondo.png") no-repeat center center fixed;
   background-size: cover;
-
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   color: #333;
+}
+
+body,
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -334,4 +339,14 @@ button:active {
 button:focus-visible {
   outline: 3px solid rgba(33, 150, 243, 0.4);
   outline-offset: 2px;
+}
+
+.welcome-image {
+  width: 140px;
+  /* tamaño controlado */
+  height: auto;
+  display: block;
+  margin: 0 auto 1.8rem;
+  /* centrado + separación con el título */
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
 }

@@ -2,26 +2,44 @@
 import { useEffect, useState } from "react";
 
 export default function TestBackend() {
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
+    const [status, setStatus] = useState({
+        data: null,
+        error: null,
+        loading: true,
+    });
 
     useEffect(() => {
-        fetch("http://localhost:4000/api/test") // 🔗 asegúrate que el backend esté corriendo en este puerto
-            .then((res) => res.json())
-            .then((info) => setData(info.message))
-            .catch(() => setError("❌ No se pudo conectar con el backend"));
+        const fetchBackendStatus = async () => {
+            try {
+                const response = await fetch("http://localhost:4000/api/test");
+                const result = await response.json();
+
+                setStatus({
+                    data: result.message,
+                    error: null,
+                    loading: false,
+                });
+            } catch {
+                setStatus({
+                    data: null,
+                    error: "❌ No se pudo conectar con el backend",
+                    loading: false,
+                });
+            }
+        };
+
+        fetchBackendStatus();
     }, []);
 
+    const { data, error, loading } = status;
+
     return (
-        <div style={{ padding: "30px", fontFamily: "sans-serif" }}>
-            <h1>🔍 Prueba de conexión con Backend</h1>
-            {data ? (
-                <p style={{ color: "green", fontSize: "18px" }}>{data}</p>
-            ) : error ? (
-                <p style={{ color: "red" }}>{error}</p>
-            ) : (
-                <p>Conectando...</p>
-            )}
-        </div>
+        <section className="test-backend-container">
+            <h1 className="title">🔍 Prueba de conexión con Backend</h1>
+
+            {loading && <p>Conectando...</p>}
+            {data && <p className="success">{data}</p>}
+            {error && <p className="error">{error}</p>}
+        </section>
     );
 }
